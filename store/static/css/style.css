@@ -1,0 +1,219 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-image: url("{% static 'images/image.png' %}");
+    background-size: cover;
+    background-position: center;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+h1, h2, h3 {
+    color: black;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    text-align: center;
+}
+
+/* Navbar Styles */
+.navbar {
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 10px 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.navbar-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.navbar .logo {
+    font-size: 1.8em;
+    color: #fff;
+    text-decoration: none;
+}
+
+.navbar-links {
+    display: flex;
+    list-style: none;
+}
+
+.navbar-links li {
+    margin-left: 20px;
+}
+
+.navbar-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.1em;
+}
+
+.navbar-links a:hover {
+    text-decoration: underline;
+}
+
+.logout-form button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.logout-form button:hover {
+    background-color: #ff1a1a;
+}
+
+/* Main Content */
+.main-content {
+    margin-top: 100px; /* Add margin to push content below navbar */
+    padding: 20px;
+    text-align: center;
+    max-width: 1200px;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Add a semi-transparent background to enhance text visibility */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.main-content h1,h2,h3 {
+    color: black;
+}
+.product-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    justify-items: center;
+    margin-top: 40px;
+}
+
+.product-card {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 100%;
+    max-width: 320px;
+    transition: transform 0.3s ease;
+}
+
+
+.product-card:hover {
+    transform: translateY(-10px);
+}
+
+/* Product Image */
+.product-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.product-card h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+}
+
+.product-card p {
+    margin: 5px 0;
+    font-size: 1.1em;
+    color: #666;
+}
+
+.product-card button {
+    padding: 10px 20px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.product-card button:hover {
+    background-color: #218838;
+}
+
+.product-card a {
+    display: block;
+    margin-top: 10px;
+    color: #007bff;
+    font-weight: bold;
+}
+
+/* Footer Styles */
+footer {
+    background-color: rgba(0, 0, 0, 0.8);
+    width: 100%;
+    padding: 20px;
+    color: #fff;
+    text-align: center;
+    position: relative;
+    bottom: 0;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.footer-links li {
+    margin: 0 15px;
+}
+
+.footer-links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1em;
+}
+
+.footer-links a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .product-list {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .navbar-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .navbar-links {
+        flex-direction: column;
+        margin-top: 10px;
+    }
+
+    .navbar-links li {
+        margin-left: 0;
+        margin-bottom: 10px;
+    }
+
+    .footer-links {
+        flex-direction: column;
+    }
+}

@@ -1,0 +1,33 @@
+<!-- store/templates/store/signup.html -->
+
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Online Store</title>
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+</head>
+<body>
+    <div id="signup-container">
+        <h1 id="signup-title">Create Your Account</h1>
+        <p id="signup-intro">Join our Online Store and start shopping today!</p>
+
+        <!-- Signup Form -->
+        <form action="" method="post" id="signup-form">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.as_p }}
+            </div>
+            <button type="submit" id="signup-button">Sign Up</button>
+        </form>
+
+        <p id="login-prompt"> Already have an account? 
+            <a href="{% url 'store:login' %}" id="login-link">Login</a>
+        </p>
+        <p><a href="{% url 'store:index' %}" id="back-to-home">Back to Home</a></p>
+    </div>
+</body>
+</html>

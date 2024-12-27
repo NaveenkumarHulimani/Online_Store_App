@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank You</title>
+    <link rel="stylesheet" href="{% static 'css/logout.css' %}">
+</head>
+<body>
+    <div id="thank-you-container">
+        <h1 id="thank-you-title">Thank You for Visiting!</h1>
+        <p id="thank-you-message">We hope to see you again soon.</p>
+        <p id="sign-in-prompt">If you'd like to sign in again, you can click the button below:</p>
+        <a href="{% url 'store:login' %}" id="sign-in-link">
+            <button id="sign-in-button">Sign In Again</button>
+        </a>
+        <p><a href="{% url 'store:index' %}" id="back-to-home">Back to Home</a></p>
+    </div>
+</body>
+</html>

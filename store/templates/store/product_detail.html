@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ product.name }}</title>
+</head>
+<body>
+    <h1>{{ product.name }}</h1>
+    <p>Category: {{ product.category.name }}</p>
+    <p>Price: ${{ product.price }}</p>
+    <p>{{ product.description }}</p>
+
+    {% if product.image %}
+        <img src="{{ product.image.url }}" alt="{{ product.name }}">
+    {% endif %}
+
+    <p><a href="{% url 'store:product_list' %}">Back to Catalog</a></p>
+
+    <form action="{% url 'cart:add_to_cart' product.id %}" method="post">
+        {% csrf_token %}
+        <input type="number" name="quantity" value="1" min="1">
+        <button type="submit">Add to Cart</button>
+    </form>
+    
+</body>
+</html>

@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/cart_detail.css' %}">
+    <title>Your Cart</title>
+</head>
+<body>
+    <div id="cart-container">
+        <h1 id="cart-title">Your Cart</h1>
+        {% if cart %}
+            <table class="cart-table">
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in cart %}
+                        <tr class="cart-item">
+                            <td class="cart-product-name">{{ item.product.name }}</td>
+                            <td class="cart-product-quantity">{{ item.quantity }}</td>
+                            <td class="cart-product-price">${{ item.product.price }}</td>
+                            <td class="cart-product-total">${{ item.total_price }}</td>
+                            <td>
+                                <a href="{% url 'cart:remove_from_cart' item.product.id %}" class="cart-remove-link">Remove</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <p id="cart-total">Total: ${{ cart.get_total_price }}</p>
+        {% else %}
+            <p id="cart-empty">Your cart is empty.</p>
+        {% endif %}
+        <a href="{% url 'store:product_list' %}" id="back-to-store">Back to Store</a>
+    </div>
+</body>
+</html>

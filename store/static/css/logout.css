@@ -1,0 +1,78 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+/* Container */
+#thank-you-container {
+    background-color: #ffffff;
+    padding: 40px 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    width: 90%;
+}
+
+/* Title */
+#thank-you-title {
+    font-size: 2.5em;
+    color: #007bff;
+    margin-bottom: 20px;
+}
+
+/* Message */
+#thank-you-message,
+#sign-in-prompt {
+    font-size: 1.2em;
+    margin: 10px 0;
+    color: #555;
+}
+
+/* Button Link */
+#sign-in-link {
+    text-decoration: none;
+}
+
+#sign-in-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#sign-in-button:hover {
+    background-color: #0056b3;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    #thank-you-container {
+        padding: 20px;
+    }
+
+    #thank-you-title {
+        font-size: 2em;
+    }
+
+    #thank-you-message,
+    #sign-in-prompt {
+        font-size: 1em;
+    }
+
+    #sign-in-button {
+        font-size: 0.9em;
+    }
+}

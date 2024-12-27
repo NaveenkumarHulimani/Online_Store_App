@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <h1>Complete Your Payment</h1>
+
+    <!-- Display the payment form -->
+    <form id="payment-form">
+        <div id="card-element">
+            <!-- A Stripe Element will be inserted here. -->
+        </div>
+        <!-- Used to display form errors. -->
+        <div id="card-errors" role="alert"></div>
+
+        <button type="submit">Pay Now</button>
+    </form>
+
+    <script>
+        // Set up Stripe.js and Elements to use in the form
+        var stripe = Stripe('{{ stripe_public_key }}');
+        var elements = stripe.elements();
+        var card = elements.create('card');
+        card.mount('#card-element');
+
+        // Handle form submission
+        var form = document.getElementById('payment-form');
+        form.addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            stripe.confirmCardPayment('{{ intent.client_secret }}', {
+                payment_method: {
+                    card: card,
+                }
+            }).then(function(result) {
+                if (result.error) {
+                    // Show error to your customer
+                    var errorElement = document.getElementById('card-errors');
+                    errorElement.textContent = result.error.message;
+                } else {
+                    // Payment succeeded
+                    if (result.paymentIntent.status === 'succeeded') {
+                        // Send the payment intent ID to your server
+                        var paymentIntentId = result.paymentIntent.id;
+                        var orderId = '{{ order.id }}';
+
+                        fetch('/confirm-payment/', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRFToken': '{{ csrf_token }}'
+                            },
+                            body: JSON.stringify({ 
+                                payment_intent_id: paymentIntentId, 
+                                order_id: orderId
+                            })
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.success) {
+                                window.location.href = '/order-confirmation/' + orderId;
+                            } else {
+                                alert(data.error);
+                            }
+                        });
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

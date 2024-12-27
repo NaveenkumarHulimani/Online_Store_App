@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Home - Online Store</title>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/" class="logo">Online Store</a>
+            <ul class="navbar-links">
+                <li><a href="{% url 'store:index' %}">Home</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'cart:cart_detail' %}">Cart</a></li>
+                    <li>
+                        <form action="{% url 'store:logout' %}" method="post" class="logout-form">
+                            {% csrf_token %}
+                            <button type="submit">Logout</button>
+                        </form>
+                    </li>
+                {% else %}
+                    <li><a href="{% url 'store:login' %}">Login</a></li>
+                    <li><a href="{% url 'store:signup' %}">Sign Up</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content Section -->
+    <div class="main-content">
+        <h1 style="color: blue;">Welcome to the Online Store</h1>
+        
+        <!-- Product Section -->
+        <h2 style="color: darkslategray;">Our Products</h2>
+        <div class="product-list">
+            {% for product in products %}
+                <div class="product-card">
+                    {% if product.image %}
+                     <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+                                                      {% else %}
+                     <img src="{% static 'images/default-product.jpg' %}" alt="Default Image" class="product-image">
+                                                      {% endif %}
+                    <h3>{{ product.name }}</h3>
+                    <p>{{ product.description }}</p>
+                    <p>${{ product.price }}</p>
+                    {% if user.is_authenticated %}
+                        <!-- Add to Cart Form -->
+                        <form action="{% url 'cart:add_to_cart' product.id %}" method="post">
+                            {% csrf_token %}
+                            <button type="submit">Add to Cart</button>
+                        </form>
+                    {% else %}
+                        <p><a href="{% url 'store:login' %}">Login to add to cart</a></p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- Cart Link -->
+        {% if cart.items %}
+            <h3><a href="{% url 'cart:cart_detail' %}">My Cart ({{ cart.total_quantity }} items)</a></h3>
+        {% endif %}
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2024 Online Store. All rights reserved.</p>
+            <ul class="footer-links">
+                <li><a href="#">Privacy Policy</a></li>
+                <li><a href="#">Terms of Service</a></li>
+            </ul>
+        </div>
+    </footer>
+
+</body>
+</html>

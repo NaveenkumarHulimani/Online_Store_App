@@ -1,0 +1,51 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Online Store</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+<body>
+    <div id="login-container">
+        <h1 id="login-title">Welcome Back to the Online Store!</h1>
+
+        <p id="login-intro">Already a member? Please log in to continue shopping, view your cart, and manage your orders.</p>
+        
+        <h2 id="login-header">Login</h2>
+        
+        <!-- Login Form -->
+        <form method="post" id="login-form">
+            {% csrf_token %}
+            <div class="form-group">
+                {{ form.as_p }}
+            </div>
+            <button type="submit" id="login-button">Login</button>
+        </form>
+
+        <!-- Sign Up Link -->
+        <p id="signup-prompt">Don't have an account? <a href="{% url 'store:signup' %}" id="signup-link">Sign up</a> and start shopping today!</p>
+
+        <!-- Display Products or Featured Items -->
+        <h2 id="featured-header">Featured Products</h2>
+        <div id="featured-products">
+            {% for product in products %}
+                <div class="product-card">
+                    <h3 class="product-name">{{ product.name }}</h3>
+                    <p class="product-description">{{ product.description }}</p>
+                    <p class="product-price">${{ product.price }}</p>
+                </div>
+            {% endfor %}
+        </div>
+        
+        <p id="contact-prompt">If you need assistance, feel free to contact us or visit our <a href="{% url 'store:contact' %}" id="contact-link">Contact Us</a> page.</p>
+        <p><a href="{% url 'store:index' %}" id="back-to-home">Back to Home</a></p>
+    </div>
+
+    <footer id="footer">
+        <p>&copy; 2024 Online Store. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
